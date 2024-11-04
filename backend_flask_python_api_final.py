@@ -15,11 +15,11 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 import operator
-
-
+0
+# Firebase@123
 # Provide the path to the service account key file
 cred = credentials.Certificate(
-    "C:\\Users\\om\\Desktop\\omr final\\omr-master-project-firebase-adminsdk-sbakz-fee3bdb2f8.json"
+    'omr-master-project-firebase-adminsdk-sbakz-bcc3da7e2c.json'
 )
 
 firebase_admin.initialize_app(
