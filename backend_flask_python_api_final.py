@@ -82,7 +82,7 @@ def convert_to_2d_array(file_path):
     return array_2d
 
 # final = convert_to_2d_array(
-#     "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\final_answer_key.txt"
+#     "final_answer_key.txt"
 # )
 
 def create_omr_sheet2(file_path, freq, num_circle):
@@ -169,17 +169,14 @@ label_gap = 25
 page_limit = 15000
 widths = [0, 0, 0, 0]
 
-font = ImageFont.truetype("arial.ttf", font_size)
-number_font = ImageFont.truetype("arial.ttf", int(font_size / 1.5))
-decimal_font = ImageFont.truetype("arial.ttf", int(font_size * 5))
 
 def writing(draw, content, height, width, gap_from_left):
     # write the content on the omr sheet
-    text_bbox = draw.textbbox((0, 0), content, font=font)
+    text_bbox = draw.textbbox((0, 0), content)
     text_width = text_bbox[2] - text_bbox[0]
     text_height = text_bbox[3] - text_bbox[1]
     text_x = (width - text_width) / 2
-    draw.text((text_x, height), content, fill="black", font=font)
+    draw.text((text_x, height), content, fill="black")
     height += text_height + line_gap
     return height
 
@@ -555,7 +552,7 @@ def create_omr_sheet_endpoint():
     print(2)
     print(time.time())
 
-    path = "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\column"
+    path = "column"
     # width = 560
     # height = 3100   
     # color = (255, 255, 255)  # RGB value for white
@@ -576,9 +573,6 @@ def create_omr_sheet_endpoint():
     page_limit = 15000
     widths = [0, 0, 0, 0]
 
-    font = ImageFont.truetype("arial.ttf", font_size)
-    number_font = ImageFont.truetype("arial.ttf", int(font_size / 1.5))
-    decimal_font = ImageFont.truetype("arial.ttf", int(font_size * 5))
     labels_of_all_headings = []
     type_of_all_headings = []  # 0 for multi tf, 1 for matrix, deci num
     sections_at_those_heights = []
@@ -711,9 +705,7 @@ def create_omr_sheet_endpoint():
                 circle_diameter,
                 border_width,
                 tf_gap_multiplier,
-                decimal_font,
                 decimal_position,
-                number_font,
                 font_size,
                 label_gap,
                 default_section_gap,
@@ -741,7 +733,7 @@ def create_omr_sheet_endpoint():
     print(6)
     print(time.time())
 
-    path = "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\omr_sheet_full.png"
+    path = "omr_sheet_full.png"
     # image_filenames = ["column0.png", "column1.png", "column2.png", "column3.png"]
     # for i in image_filenames:
     #     source_path = i
@@ -749,20 +741,20 @@ def create_omr_sheet_endpoint():
     #     shutil.copy(source_path, destination_path)
 
     # image_path2 = (
-    #     "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\take_away_marekrs_new.jpg"
+    #     "take_away_marekrs_new.jpg"
     # )
     # pasting = Image.open(image_path2)
     # new_image = Image.open(path)
     # new_image.paste(pasting, (25, 350))
     # new_image.paste(pasting, (2480-75, 350))
-    # new_image.save("C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\omr_sheet_full.png")
+    # new_image.save("omr_sheet_full.png")
 
     # save new_image
 
 
 
     
-    # image_path = "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\"
+    # image_path = ""
     # image_objects = [
     #     Image.open(os.path.join(image_path, img)) for img in image_filenames
     # ]
@@ -778,7 +770,7 @@ def create_omr_sheet_endpoint():
         new_image.paste(img, (coord, 350))
 
     # new_image.paste(pasting, (2480-75, 350))
-    # new_image.save("C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\final.png")
+    # new_image.save("final.png")
     new_image2 = io.BytesIO()
     print(8)
     print(time.time())
@@ -787,7 +779,7 @@ def create_omr_sheet_endpoint():
     print(9)
     print(time.time())
     # save the imgae in the local folder
-    new_image.save("C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\final.png")
+    new_image.save("final.png")
     return send_file(new_image2, mimetype="image/png")
 
 from flask import Flask, render_template, request, jsonify
@@ -895,10 +887,10 @@ def give_correct_image_orientation(image):
 
         # Save the cropped image
         cv2.imwrite(
-            "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\scanned2.jpg", warped
+            "scanned2.jpg", warped
         )
         image = cv2.imread(
-            "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\scanned2.jpg"
+            "scanned2.jpg"
         )
         return "Success"
     else:
@@ -942,7 +934,7 @@ def receive_omr_sheet():
 
     # print(name_of_exam, admin_email)
     # viewfinder_image_path = (
-    #     "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\testing_scan.jpg"
+    #     "testing_scan.jpg"
     # )#change this file to the one that is received from the app
     # viewfinder_image.save(viewfinder_image_path)
     # image = Image.open(viewfinder_image_path)
@@ -1053,10 +1045,10 @@ def receive_omr_sheet():
     images_path = [img1, img2, img3, img4]
 
     img = merge_images(images_path)
-    img.save("C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\merged.png")
+    img.save("merged.png")
 
     image = cv2.imread(
-        f"C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\merged.png",
+        f"merged.png",
         cv2.IMREAD_GRAYSCALE,
     )
     # image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -1162,7 +1154,7 @@ def receive_omr_sheet():
                     flag = True
                 # print(1)
         output = (
-            "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\test"
+            "test"
             + str(0)
             + ".png"
         )
@@ -1228,7 +1220,7 @@ def receive_answer_key():
 
     # print(name_of_exam, admin_email)
     # viewfinder_image_path = (
-    #     "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\testing_scan.jpg"
+    #     "testing_scan.jpg"
     # )#change this file to the one that is received from the app
     # viewfinder_image.save(viewfinder_image_path)
     # image = Image.open(viewfinder_image_path)
@@ -1339,10 +1331,10 @@ def receive_answer_key():
     images_path = [img1, img2, img3, img4]
 
     img = merge_images(images_path)
-    img.save("C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\merged.png")
+    img.save("merged.png")
 
     image = cv2.imread(
-        f"C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\merged.png",
+        f"merged.png",
         cv2.IMREAD_GRAYSCALE,
     )
     # image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -1448,7 +1440,7 @@ def receive_answer_key():
                     flag = True
                 # print(1)
         output = (
-            "C:\\Users\\om\\Desktop\\OMR_project\\omr creation\\test"
+            "test"
             + str(0)
             + ".png"
         )
